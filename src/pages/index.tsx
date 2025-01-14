@@ -1,17 +1,20 @@
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import Select from "@/components/Select";
+import Card from "@/components/Card";
+import {useRouter} from "next/router";
 
 export default function Home() {
+
+  const router = useRouter()
   return (
     <div>
-      <div>
-        <div>
+      <div className="flex justify-between">
+        <div className="flex gap-4">
           <div>총 금액</div>
           <div><span>1,000,000</span>원</div>
         </div>
 
-        <div>더보기</div>
+        <button onClick={() => router.push('/detail')}>더보기</button>
       </div>
 
       <div>
@@ -19,27 +22,13 @@ export default function Home() {
 
         <div>
 
-          <div>
-            <div>
-              <div>[식비] 저녁식사</div>
-              <div>2025.01.01</div>
-            </div>
-            <div>
-              <div><span>50.000</span>원</div>
-            </div>
-          </div>
+          <Card  />
+          <Card  />
 
-          <div>
-            <div>
-              <div>[식비] 저녁식사</div>
-              <div>2025.01.01</div>
-            </div>
-            <div>
-              <div><span>50.000</span>원</div>
-            </div>
-          </div>
 
-          <Button text={'더보기'} />
+          <div className="flex justify-center">
+            <Button text={'더보기'}/>
+          </div>
 
 
         </div>
@@ -51,25 +40,8 @@ export default function Home() {
 
         <div>
 
-          <div>
-            <div>
-              <div>[월급] 12월 월급</div>
-              <div>2025.01.01</div>
-            </div>
-            <div>
-              <div><span>50.000</span>원</div>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <div>[투자] 삼성전자 30주 매도</div>
-              <div>2025.01.01</div>
-            </div>
-            <div>
-              <div><span>50.000</span>원</div>
-            </div>
-          </div>
+          <Card />
+          <Card />
 
           <Button text={'더보기'} />
 
@@ -77,9 +49,9 @@ export default function Home() {
         </div>
       </div>
 
-
-      <Input/>
-      <Select/>
+      <div>
+        bar chart
+      </div>
     </div>
   );
 }
