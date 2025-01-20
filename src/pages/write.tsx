@@ -1,5 +1,6 @@
 import Select from "@/components/Select";
 import Input from "@/components/Input";
+import Button from "@/components/Button";
 
 const Write = () => {
    return (
@@ -7,8 +8,14 @@ const Write = () => {
        <div>
          <div>분류</div>
          <div>
-           <input type="checkbox"/>
-           <input type="checkbox"/>
+           <div>
+             <input type="radio" id='chk01' name='price'/>
+             <label htmlFor="chk01">수입</label>
+           </div>
+           <div>
+             <input type="radio" id='chk02' name='price'/>
+             <label htmlFor="chk02">지출</label>
+           </div>
          </div>
        </div>
 
@@ -17,7 +24,7 @@ const Write = () => {
        </div>
 
        <div>
-         <div>내역</div>
+       <div>내역</div>
          <div>
            <Input/>
          </div>
@@ -35,6 +42,11 @@ const Write = () => {
          <div>
            <Input/>
          </div>
+       </div>
+       
+       <div className='flex justify-center mt-20'>
+         <Button text={'취소'}/>
+         <Button text={'저장'}/>
        </div>
 
      </div>
