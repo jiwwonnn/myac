@@ -6,30 +6,42 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import {PriceType} from "@/types/account";
 import {EXPENDITURECATEGORY, INCOMECATEGORY} from "@/constants/type";
+import {useRouter} from "next/router";
+
 
 const Write = () => {
+  const navigate = useRouter()
   const [priceType, setPriceType] = useState<PriceType>('income')
+  const [type, setType] = useState<string>('선택해주세요.')
   const [content, setContent] = useState<string>('')
   const [detail, setDetail] = useState<string>('')
   const [date, setDate] = useState<string>('')
   const [price, setPrice] = useState<string>('')
 
-  
-  
+
   // 분류, 타입, 내역, 날짜, 상세내역, 금액 내용을 입력 후 FIREBASE에 저장하는 함수 ( after react-query )
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
       await addDoc(collection(db, "posts"), {
+        priceType: priceType,
+        type:  type,
         content: content,
         detail: detail,
         price: price,
         date: date,
       })
+      setPriceType('income')
+      setType('')
+      setContent('')
+      setDetail('')
+      setDate('')
+      setPrice('')
     } catch (e) {
       console.log(e)
     }
+    navigate.push('/')
   }
 
   // 분류를 변경했을때 select 의 상태가 초기화가 되어야한다.
@@ -67,6 +79,7 @@ const Write = () => {
 
        <div className=''>
          <Select
+           setType={setType}
            priceType={priceType}
            optionList={priceType === "income" ? INCOMECATEGORY : EXPENDITURECATEGORY}
          />

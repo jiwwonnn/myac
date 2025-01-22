@@ -1,19 +1,23 @@
 import Button from "@/components/Button";
+import {Account} from "@/types/account";
 
 interface DetailProps {
   detail? : boolean,
+  post: Account
 }
 
-const Card = ({ detail = false} : DetailProps) => {
+const Card = ({ detail = false, post} : DetailProps) => {
+
+  console.log(post, "post")
   return (
     <div className={`shadow-lg rounded-md`}>
       <div className={`relative flex justify-between  ${detail ? 'py-2 pl-2 pr-8' : 'p-2'}`}>
         <div>
-          <div>[type] desc</div>
-          <div>date</div>
+          <div>[{post?.type}] {post?.content}</div>
+          <div>{post?.date}</div>
         </div>
         <div>
-          <div><span>price</span>원</div>
+          <div><span>{post?.price}</span>원</div>
           <div>
             <Button text="수정"/>
             <Button text="삭제"/>
@@ -29,7 +33,7 @@ const Card = ({ detail = false} : DetailProps) => {
       {
         detail === true &&
         <div className="border-t border-t-gray-600 mt-4 p-2">
-          use history
+          {post?.detail}
         </div>
       }
 

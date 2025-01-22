@@ -2,22 +2,25 @@ import {useEffect, useState} from "react";
 import {PriceType} from "@/types/account";
 
 export interface SelectProps {
+  setType: (value: string) => void,
   priceType : PriceType
   optionList : Record<string, string> // key-value 형태의 객체를 받는다.
 }
 
-const Select = ({optionList, priceType}: SelectProps) => {
+const Select = ({optionList, priceType, setType}: SelectProps) => {
 
   const [selectedText, setSelectedText] = useState<string>('선택해주세요.')
   const [open, setOpen] = useState<boolean>(false)
 
   const handleSelect = (value:string) => {
     setSelectedText(value)
+    setType(value)
     setOpen((prev) => !prev)
   }
 
   useEffect(() => {
     setSelectedText('선택해주세요.')
+    setType('선택해주세요.')
   }, [priceType]);
 
 
