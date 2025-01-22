@@ -20,16 +20,3 @@ if(!getApps().length) {
 }
 
 export const db = getFirestore(app)
-
-
-// [
-//   {
-//     "date" : 2025-01-01,
-//     "priceType" : '지출',
-//     "price" : 30,000,
-//     "content" : '저녁 식사',
-//     "detail" : '홍길동과의 저녁',
-//     "edit" : false,
-//     "type" :
-//   }
-// ]

@@ -1,9 +1,11 @@
+import {MouseEventHandler} from "react";
+
 interface ButtonProps {
   textColor? : string,
   borderColor? : string,
   backgroundColor? : string,
   text? : string,
-  onClick? : () => void
+  onClick? : MouseEventHandler<HTMLButtonElement>
 }
 
 const Button = ({

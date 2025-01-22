@@ -1,4 +1,3 @@
-import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import {useRouter} from "next/router";
@@ -6,6 +5,8 @@ import {useRouter} from "next/router";
 export default function Home() {
 
   const router = useRouter()
+
+
   return (
     <div>
       <div className="flex justify-between">
