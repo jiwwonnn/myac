@@ -10,4 +10,5 @@ export interface Account {
   date: string
   price: string
   isEditing? : boolean
+  id: string
 }

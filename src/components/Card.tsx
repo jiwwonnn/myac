@@ -1,5 +1,7 @@
 import Button from "@/components/Button";
 import {Account} from "@/types/account";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import {useState} from "react";
 
 interface DetailProps {
   detail? : boolean,
@@ -8,7 +10,13 @@ interface DetailProps {
 
 const Card = ({ detail = false, post} : DetailProps) => {
 
-  console.log(post, "post")
+  const [isOpen, setIsOpen] =  useState<boolean>(false)
+
+  const hanndleToggle = () => {
+    setIsOpen((prev) => !prev)
+  }
+
+
   return (
     <div className={`shadow-lg rounded-md`}>
       <div className={`relative flex justify-between  ${detail ? 'py-2 pl-2 pr-8' : 'p-2'}`}>
@@ -18,23 +26,30 @@ const Card = ({ detail = false, post} : DetailProps) => {
         </div>
         <div>
           <div><span>{post?.price}</span>원</div>
-          <div>
-            <Button text="수정"/>
-            <Button text="삭제"/>
-          </div>
+          {
+            detail === true && (
+              <div>
+                <Button text="수정"/>
+                <Button text="삭제"/>
+              </div>
+            )
+          }
+
         </div>
 
         {
           detail === true && (
-            <div className='absolute right-2 top-1/2 transform -translate-y-1/2'>위</div>
+            <div className='absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer' onClick={hanndleToggle}>
+              { !isOpen ? <IoIosArrowDown />  : <IoIosArrowUp />}
+            </div>
           )
         }
       </div>
       {
-        detail === true &&
-        <div className="border-t border-t-gray-600 mt-4 p-2">
-          {post?.detail}
-        </div>
+        detail === true && isOpen ?
+          <div className="border-t border-t-gray-600 mt-4 p-2">
+            {post?.detail}
+          </div> :  ''
       }
 
     </div>
