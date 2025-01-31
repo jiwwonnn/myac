@@ -11,4 +11,5 @@ export interface Account {
   price: string
   isEditing? : boolean
   id: string
+  isMatch?: boolean;
 }

@@ -72,7 +72,7 @@ const Detail = () => {
             return null
           }
         });
-        setSearchData(newData.filter(post => post))
+        setSearchData(newData.filter(Boolean) as Account[])
       } else {
         const newData = expenditurePosts.map(post => {
           const itemYear = post.date.split("-")[0];
@@ -87,7 +87,7 @@ const Detail = () => {
             return null
           }
         });
-        setSearchData(newData.filter(post => post))
+        setSearchData(newData.filter(Boolean) as Account[])
       }
     }
   }, [formattedDate, tab]);
@@ -121,13 +121,13 @@ const Detail = () => {
 
       <div className="mt-10">
         {
-          searchData?.filter(post => post.isMatch)?.length <= 0 &&
+          searchData.filter(post => post.isMatch)?.length <= 0 &&
           <div>
             {tab === 'income' ? '수입' : '지출'} 데이터가 없습니다.
           </div>
         }
         {
-          searchData?.filter(post => post.isMatch)?.map(post => (
+          searchData.filter(post => post.isMatch)?.map(post => (
             <Card key={post.id} post={post} detail={true}/>
           ))
         }
