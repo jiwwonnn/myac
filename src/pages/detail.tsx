@@ -8,7 +8,11 @@ const Detail = () => {
   const [tab, setTab] = useState<PriceType>('income')
   const [incomePosts, setIncomePosts] =useState<Account[]>([]);
   const [expenditurePosts, setExpenditurePosts] = useState<Account[]>([]);
+
+  const [searchData, setSearchData] = useState<Account[]>([]);
+
   const [date, setDate] = useState(new Date())
+
 
   const formattedDate = `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
 
@@ -19,7 +23,6 @@ const Detail = () => {
       setIncomePosts(incomeData);
       setExpenditurePosts(expenditureData);
     };
-
     fetchDetailData();
   }, []);
 
@@ -31,6 +34,7 @@ const Detail = () => {
   const handlePreviousMonth = () => {
     setDate((prevDate) => {
       const newDate = new Date(prevDate);
+      newDate.setDate(1)
       newDate.setMonth(newDate.getMonth() - 1);
       return newDate;
     });
@@ -40,10 +44,53 @@ const Detail = () => {
   const handleNextMonth = () => {
     setDate((prevDate) => {
       const newDate = new Date(prevDate);
+      newDate.setDate(1)
       newDate.setMonth(newDate.getMonth() + 1);
       return newDate;
     });
   };
+
+  useEffect(() => {
+    if(formattedDate) {
+      const newYear = formattedDate.split(' ')[0].replaceAll("년", "");
+      let newMonth = formattedDate.split(' ')[1].replaceAll("월", "");
+      if(parseInt(newMonth) < 10) {
+        newMonth = "0" + newMonth;
+      }
+
+      if(tab === "income") {
+        const newData = incomePosts.map(post => {
+          const itemYear = post.date.split("-")[0];
+          const itemMonth = post.date.split("-")[1];
+          if (newYear === itemYear && newMonth === itemMonth) {
+            return {
+              ...post,
+              isMatch: true,
+              title: "수입"
+            }
+          } else {
+            return null
+          }
+        });
+        setSearchData(newData.filter(post => post))
+      } else {
+        const newData = expenditurePosts.map(post => {
+          const itemYear = post.date.split("-")[0];
+          const itemMonth = post.date.split("-")[1];
+          if (newYear === itemYear && newMonth === itemMonth) {
+            return {
+              ...post,
+              isMatch: true,
+              title: "지출"
+            }
+          } else {
+            return null
+          }
+        });
+        setSearchData(newData.filter(post => post))
+      }
+    }
+  }, [formattedDate, tab]);
 
 
   return (
@@ -73,18 +120,17 @@ const Detail = () => {
       </div>
 
       <div className="mt-10">
-        {tab === "expenditure" &&
-          (expenditurePosts.length > 0 ? (
-            expenditurePosts.map((post) => <Card key={post.id} post={post} detail={true}/>)
-          ) : (
-            <div>지출 데이터가 없습니다.</div>
-          ))}
-        {tab === "income" &&
-          (incomePosts.length > 0 ? (
-            incomePosts.map((post) => <Card key={post.id} post={post} detail={true}/>)
-          ) : (
-            <div>입금 데이터가 없습니다.</div>
-          ))}
+        {
+          searchData?.filter(post => post.isMatch)?.length <= 0 &&
+          <div>
+            {tab === 'income' ? '수입' : '지출'} 데이터가 없습니다.
+          </div>
+        }
+        {
+          searchData?.filter(post => post.isMatch)?.map(post => (
+            <Card key={post.id} post={post} detail={true}/>
+          ))
+        }
       </div>
     </div>
   )

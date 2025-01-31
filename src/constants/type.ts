@@ -15,16 +15,16 @@ export const INCOMECATEGORY = {
 } as const
 
 export const CategoryLabels = {
-  food: "식비",
-  housing: "주거비",
-  insurance: "보험비",
-  transportation: "교통비",
-  medical: "의료비",
-  education: "교육비",
-  living: "생활비",
-  communication: "통신비",
-  salary: "월급",
-  invest: "투자",
+  FOOD: "식비",
+  HOUSING: "주거비",
+  INSURANCE: "보험비",
+  TRANSPORTATION: "교통비",
+  MEDICAL: "의료비",
+  EDUCATION: "교육비",
+  LIVING: "생활비",
+  COMMUNICATION: "통신비",
+  SALARY: "월급",
+  INVEST: "투자",
 } as const
 
 

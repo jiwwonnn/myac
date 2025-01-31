@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import {Account} from "@/types/account";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {useState} from "react";
+import {CategoryLabels} from "@/constants/type";
 
 interface DetailProps {
   detail? : boolean,
@@ -17,15 +18,18 @@ const Card = ({ detail = false, post} : DetailProps) => {
   }
 
 
+
+
+
   return (
     <div className={`shadow-lg rounded-md`}>
       <div className={`relative flex justify-between  ${detail ? 'py-2 pl-2 pr-8' : 'p-2'}`}>
         <div>
-          <div>[{post?.type}] {post?.content}</div>
+          <div>[{CategoryLabels[post?.type]}] {post?.content}</div>
           <div>{post?.date}</div>
         </div>
         <div>
-          <div><span>{post?.price}</span>원</div>
+        <div><span>{post?.price}</span>원</div>
           {
             detail === true && (
               <div>
